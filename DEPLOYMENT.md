@@ -14,20 +14,20 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | PENDING_RAILWAY_URL |
-| Platform | Railway |
+| Public URL | PENDING_RENDER_URL |
+| Platform | Render |
 | Ngày deploy | 2026-08-10 |
 
-Sau khi Railway tạo domain, thay `PENDING_RAILWAY_URL` bằng URL HTTPS đầy đủ,
+Sau khi Render tạo domain, thay `PENDING_RENDER_URL` bằng URL HTTPS đầy đủ,
 không thêm dấu `/` ở cuối.
 
 ## Biến Môi Trường Trên Cloud
 
 | Biến | Nguồn giá trị |
 |------|---------------|
-| `PORT` | Railway tự cung cấp |
-| `API_TOKEN` | Secret tự sinh, đặt trong Variables của service chat |
-| `REDIS_URL` | Reference variable tới `REDIS_URL` của Railway Redis service |
+| `PORT` | Render tự cung cấp |
+| `API_TOKEN` | Secret tự sinh, đặt trong Environment của web service |
+| `REDIS_URL` | Internal connection string của Render Key Value service |
 | `BUCKET_CAPACITY` | `10` |
 | `REFILL_PER_MINUTE` | `10` |
 | `DAILY_BUDGET_USD` | `1.0` |
@@ -68,5 +68,5 @@ Chưa có — cập nhật sau khi Railway deploy thành công. Cần lưu bằn
 
 Sau khi deploy, lưu hai file:
 
-- `screenshots/dashboard.png`: Railway deployment ở trạng thái thành công.
+- `screenshots/dashboard.png`: Render deployment ở trạng thái thành công.
 - `screenshots/healthz.png`: kết quả gọi Public URL `/healthz`.
