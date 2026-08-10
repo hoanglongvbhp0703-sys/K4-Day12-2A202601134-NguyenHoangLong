@@ -7,6 +7,7 @@ services:
   - type: web
     name: day12-chat
     runtime: docker
+    autoDeployTrigger: off
     dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /healthz
