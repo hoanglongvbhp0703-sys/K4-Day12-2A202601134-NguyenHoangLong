@@ -14,12 +14,11 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | PENDING_RENDER_URL |
+| Public URL | https://day12-chat-84ca.onrender.com |
 | Platform | Render |
 | Ngày deploy | 2026-08-10 |
 
-Sau khi Render tạo domain, thay `PENDING_RENDER_URL` bằng URL HTTPS đầy đủ,
-không thêm dấu `/` ở cuối.
+Public URL dùng HTTPS và không có dấu `/` ở cuối.
 
 ## Biến Môi Trường Trên Cloud
 
@@ -38,8 +37,8 @@ không thêm dấu `/` ở cuối.
 Đặt URL và token trong terminal cục bộ; không commit hai giá trị này:
 
 ```bash
-export DEPLOY_URL="https://domain-cua-service.up.railway.app"
-export DEPLOY_API_TOKEN="token-da-set-tren-railway"
+export DEPLOY_URL="https://day12-chat-84ca.onrender.com"
+# DEPLOY_API_TOKEN được đọc từ .env local, không ghi giá trị vào tài liệu.
 
 curl -i "$DEPLOY_URL/healthz"
 curl -i "$DEPLOY_URL/readyz"
@@ -57,12 +56,22 @@ curl -i -X POST "$DEPLOY_URL/chat" \
 
 ## Kết Quả Chạy Thật
 
-Chưa có — cập nhật sau khi Railway deploy thành công. Cần lưu bằng chứng cho:
+Kiểm tra ngày 2026-08-10:
 
-- `/healthz`: HTTP 200, `status` là `ok`.
-- `/readyz`: HTTP 200, `status` là `ready`.
-- `/chat` không có token: HTTP 401 và có `WWW-Authenticate: Bearer`.
-- `/chat` có token hợp lệ: HTTP 200 và response có `reply`.
+```text
+GET /healthz -> HTTP/2 200
+{"status":"ok","service":"day12-chat-service","version":"1.0.0"}
+
+GET /readyz -> HTTP/2 200
+{"status":"ready","redis":true}
+
+POST /chat (không có token) -> HTTP/2 401
+www-authenticate: Bearer
+{"detail":"invalid or missing bearer token"}
+
+POST /chat (Bearer token hợp lệ) -> HTTP/2 200
+Response có đầy đủ reply, client_id, turns_before, usd_cost và usage.
+```
 
 ## Ảnh Chụp Màn Hình
 
